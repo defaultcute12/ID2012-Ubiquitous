@@ -1,0 +1,108 @@
+package main.java.models;
+
+import javafx.beans.property.*;
+
+/**
+ * Created by Mallu on 27/04/17.
+ */
+public class Garment {
+
+    private IntegerProperty rtfid;
+    private IntegerProperty maxWashTemp;
+    private StringProperty colorbleedResistance;
+    private IntegerProperty weight;
+    private IntegerProperty spinningLimit;
+    private IntegerProperty yarnTwist;
+
+
+    //Modified to communicate to the db and fx
+    public Garment() {
+        this.rtfid = new SimpleIntegerProperty();
+        this.maxWashTemp = new SimpleIntegerProperty();;
+        this.colorbleedResistance = new SimpleStringProperty();
+        this.weight = new SimpleIntegerProperty();;
+        this.spinningLimit = new SimpleIntegerProperty();;
+        this.yarnTwist = new SimpleIntegerProperty();;
+
+    }
+
+    //Getter setter and properties
+    //RFID
+    public IntegerProperty getRtfid() {
+        return rtfid;
+    }
+
+    public void setRtfid(int rtfid) {
+        this.rtfid.set(rtfid);
+    }
+
+    public IntegerProperty rfidProperty(){
+        return rtfid;
+    }
+
+    //MaxwashTemp
+    public IntegerProperty getMaxWashTemp() {
+        return maxWashTemp;
+    }
+
+    public void setMaxWashTemp(int maxWashTemp) {
+        this.maxWashTemp.set(maxWashTemp);
+    }
+
+    public IntegerProperty maxWashTempProperty(){
+        return maxWashTemp;
+    }
+
+    //colorresistance
+    public StringProperty getColorbleedResistance() {
+        return colorbleedResistance;
+    }
+
+    public void setColorbleedResistance(String colorbleedResistance) {
+        this.colorbleedResistance.set(colorbleedResistance);
+    }
+
+    public StringProperty colorbleedResistanceProperty(){
+        return colorbleedResistance;
+    }
+
+    //weight
+    public IntegerProperty getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight.set(weight);
+    }
+
+    public IntegerProperty weightProperty(){
+        return weight;
+    }
+
+    //spin
+    public IntegerProperty getSpinningLimit() {
+        return spinningLimit;
+    }
+
+    public void setSpinningLimit(int spinningLimit) {
+        this.spinningLimit.set(spinningLimit);
+    }
+
+    public IntegerProperty spinningLimitProperty(){
+        return spinningLimit;
+    }
+
+    //yarn
+    public IntegerProperty getYarnTwist() {
+        return yarnTwist;
+    }
+
+    public void setYarnTwist(int yarnTwist) {
+        this.yarnTwist.set(yarnTwist);
+    }
+
+    public IntegerProperty yarnTwistProperty(){
+        return yarnTwist;
+    }
+
+}
