@@ -51,7 +51,7 @@ public class Logic {
             }
 
             //colorresist
-            if(g.getColorbleedResistance().get() == true) {
+            if(g.getColorbleedResistance().get().equals("yes")) {
                 if(machine.getTemperature().get() > 40) {
                     warnings.put("temperature", true);
                     garments.remove(g);

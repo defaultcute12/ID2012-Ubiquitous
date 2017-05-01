@@ -10,7 +10,7 @@ public class Garment {
 
     private IntegerProperty rtfid;
     private IntegerProperty maxWashTemp;
-    private BooleanProperty colorbleedResistance;
+    private StringProperty colorbleedResistance;
     private FloatProperty weight;
     private IntegerProperty spinningLimit;
     private FloatProperty yarnTwist;
@@ -20,7 +20,7 @@ public class Garment {
     public Garment() {
         this.rtfid = new SimpleIntegerProperty();
         this.maxWashTemp = new SimpleIntegerProperty();
-        this.colorbleedResistance = new SimpleBooleanProperty();
+        this.colorbleedResistance = new SimpleStringProperty();
         this.weight = new SimpleFloatProperty();
         this.spinningLimit = new SimpleIntegerProperty();
         this.yarnTwist = new SimpleFloatProperty();
@@ -55,15 +55,15 @@ public class Garment {
     }
 
     //colorresistance
-    public BooleanProperty getColorbleedResistance() {
+    public StringProperty getColorbleedResistance() {
         return colorbleedResistance;
     }
 
-    public void setColorbleedResistance(boolean colorbleedResistance) {
+    public void setColorbleedResistance(String colorbleedResistance) {
         this.colorbleedResistance.set(colorbleedResistance);
     }
 
-    public BooleanProperty colorbleedResistanceProperty(){
+    public StringProperty colorbleedResistanceProperty(){
         return colorbleedResistance;
     }
 

@@ -44,7 +44,7 @@ public class GarmentDB {
 
             garment.setMaxWashTemp(rs.getInt("MAX_WASH_TEMP"));
 
-            garment.setColorbleedResistance(rs.getBoolean("COLOR_BLEED_RESISTANCE"));
+            garment.setColorbleedResistance(rs.getString("COLOR_BLEED_RESISTANCE"));
 
             garment.setWeight(rs.getFloat("WEIGHT"));
 

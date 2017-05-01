@@ -79,15 +79,7 @@ public class GarmentListController {
         */
         RFID.setCellValueFactory(cellData -> cellData.getValue().rfidProperty().asObject());
         MaxWashTemp.setCellValueFactory(cellData -> cellData.getValue().maxWashTempProperty().asObject());
-        ColorBleedResist.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Garment, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<Garment, String> param) {
-                if (param.getValue().colorbleedResistanceProperty().getValue())
-                    return new SimpleStringProperty("Yes");
-                else
-                    return new SimpleStringProperty("No");
-            }
-        });
+        ColorBleedResist.setCellValueFactory(cellData -> cellData.getValue().getColorbleedResistance());
         Weight.setCellValueFactory(cellData -> cellData.getValue().weightProperty().asObject());
         SpinningLimit.setCellValueFactory(cellData -> cellData.getValue().spinningLimitProperty().asObject());
         YarnTwist.setCellValueFactory(cellData -> cellData.getValue().yarnTwistProperty().asObject());
