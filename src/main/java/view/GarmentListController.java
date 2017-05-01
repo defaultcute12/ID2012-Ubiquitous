@@ -140,6 +140,17 @@ public class GarmentListController {
     }
 
 
+    /**
+     * Called when the user clicks on the "Select for washing button"
+     */
+    @FXML
+    private void handleGarmentsSelectedForWashing() {
+        // Call the logic
+
+        // Debug: simply display garments in the console
+        mainController.displayGarmentsSelectedInConsole(selectedGarments);
+    }
+
     // Factory that creates and binds a checkbox for a table cell
     public class GarmentCheckBoxFactory
             implements Callback<TableColumn.CellDataFeatures<Garment, CheckBox>, ObservableValue<CheckBox>> {
@@ -161,6 +172,5 @@ public class GarmentListController {
             //return checkBox.converterProperty();
             return new SimpleObjectProperty(checkBox);
         }
-
     }
 }

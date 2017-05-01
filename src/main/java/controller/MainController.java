@@ -5,11 +5,14 @@
  */
 package main.java.controller;
 
+import main.java.models.Garment;
 import main.java.view.MachineInfoController;
 import javafx.fxml.FXML;
 import main.java.models.WashingMachine;
 import main.java.view.ConsoleViewController;
 import main.java.view.GarmentListController;
+
+import java.util.Set;
 
 /**
  *
@@ -52,4 +55,7 @@ public class MainController {
      */
 
 
+    public void displayGarmentsSelectedInConsole(Set<Garment> garments) {
+        consoleViewController.displayGarmentsSelected(garments);
+    }
 }
