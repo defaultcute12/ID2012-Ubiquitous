@@ -1,5 +1,6 @@
 package main.java.models;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import javafx.beans.property.*;
 
 /**
@@ -10,19 +11,19 @@ public class Garment {
     private IntegerProperty rtfid;
     private IntegerProperty maxWashTemp;
     private StringProperty colorbleedResistance;
-    private IntegerProperty weight;
+    private FloatProperty weight;
     private IntegerProperty spinningLimit;
-    private IntegerProperty yarnTwist;
+    private FloatProperty yarnTwist;
 
 
     //Modified to communicate to the db and fx
     public Garment() {
         this.rtfid = new SimpleIntegerProperty();
-        this.maxWashTemp = new SimpleIntegerProperty();;
+        this.maxWashTemp = new SimpleIntegerProperty();
         this.colorbleedResistance = new SimpleStringProperty();
-        this.weight = new SimpleIntegerProperty();;
-        this.spinningLimit = new SimpleIntegerProperty();;
-        this.yarnTwist = new SimpleIntegerProperty();;
+        this.weight = new SimpleFloatProperty();
+        this.spinningLimit = new SimpleIntegerProperty();
+        this.yarnTwist = new SimpleFloatProperty();
 
     }
 
@@ -67,15 +68,15 @@ public class Garment {
     }
 
     //weight
-    public IntegerProperty getWeight() {
+    public FloatProperty getWeight() {
         return weight;
     }
 
-    public void setWeight(int weight) {
+    public void setWeight(float weight) {
         this.weight.set(weight);
     }
 
-    public IntegerProperty weightProperty(){
+    public FloatProperty weightProperty(){
         return weight;
     }
 
@@ -93,15 +94,15 @@ public class Garment {
     }
 
     //yarn
-    public IntegerProperty getYarnTwist() {
+    public FloatProperty getYarnTwist() {
         return yarnTwist;
     }
 
-    public void setYarnTwist(int yarnTwist) {
+    public void setYarnTwist(float yarnTwist) {
         this.yarnTwist.set(yarnTwist);
     }
 
-    public IntegerProperty yarnTwistProperty(){
+    public FloatProperty yarnTwistProperty(){
         return yarnTwist;
     }
 

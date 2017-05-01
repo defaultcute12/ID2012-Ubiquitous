@@ -46,11 +46,11 @@ public class GarmentDB {
 
             garment.setColorbleedResistance(rs.getString("COLOR_BLEED_RESISTANCE"));
 
-            garment.setWeight(rs.getInt("WEIGHT"));
+            garment.setWeight(rs.getFloat("WEIGHT"));
 
             garment.setSpinningLimit(rs.getInt("SPINNING_LIMIT"));
 
-            garment.setYarnTwist(rs.getInt("YARN_TWIST"));
+            garment.setYarnTwist(rs.getFloat("YARN_TWIST"));
 
 
             //Add garment to the ObservableList
