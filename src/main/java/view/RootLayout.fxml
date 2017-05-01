@@ -34,21 +34,13 @@
          <children>
             <SplitPane dividerPositions="0.5" layoutX="321.0" layoutY="216.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <items>
-                <AnchorPane minHeight="-Infinity" SplitPane.resizableWithParent="false">
-                     <children>
-                        <fx:include fx:id="garmentList" source="GarmentList.fxml" />
-                     </children>
-                </AnchorPane>
-
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                     <children>
-                        <SplitPane dividerPositions="0.5" layoutX="118.0" layoutY="155.0" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <items>
-                              <fx:include fx:id="machineInfo" source="MachineInfo.fxml" />
-                              <fx:include fx:id="consoleView" source="ConsoleView.fxml" />
-                           </items></SplitPane>    
-                     </children>
-                  </AnchorPane>
+                  <fx:include fx:id="garmentList" source="GarmentList.fxml" />
+                  <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" SplitPane.resizableWithParent="false">
+                     <items>
+                        <fx:include fx:id="machineInfo" source="MachineInfo.fxml" />
+                        <fx:include fx:id="consoleView" source="ConsoleView.fxml" />
+                     </items>
+                  </SplitPane>
               </items>
             </SplitPane>
          </children>

@@ -6,20 +6,25 @@
 package main.java.view;
 
 import com.sun.org.apache.xpath.internal.operations.Bool;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.util.Callback;
 import main.java.controller.MainController;
 import main.java.models.Garment;
 import main.java.models.GarmentDB;
 
 import java.sql.SQLException;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * FXML Controller class
@@ -33,6 +38,9 @@ public class GarmentListController {
     @FXML
     private TableView<Garment> garment;
 
+    // All the garments with the checkbox selected
+    private Set<Garment> selectedGarments;
+
     @FXML
     private TableColumn<Garment, Integer> RFID;
     @FXML
@@ -45,12 +53,15 @@ public class GarmentListController {
     private TableColumn<Garment, Integer> SpinningLimit;
     @FXML
     private TableColumn<Garment, Float> YarnTwist;
+    @FXML
+    private TableColumn<Garment, CheckBox> SelectedGarments; // Checkbox
 
     /**
      * The constructor.
      * The constructor is called before the initialize() method.
      */
     public GarmentListController() {
+        selectedGarments = new HashSet<>();
     }
 
     @FXML
@@ -68,7 +79,6 @@ public class GarmentListController {
         */
         RFID.setCellValueFactory(cellData -> cellData.getValue().rfidProperty().asObject());
         MaxWashTemp.setCellValueFactory(cellData -> cellData.getValue().maxWashTempProperty().asObject());
-        //ColorBleedResist.setCellValueFactory(cellData -> cellData.getValue().colorbleedResistanceProperty());
         ColorBleedResist.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Garment, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Garment, String> param) {
@@ -82,6 +92,8 @@ public class GarmentListController {
         SpinningLimit.setCellValueFactory(cellData -> cellData.getValue().spinningLimitProperty().asObject());
         YarnTwist.setCellValueFactory(cellData -> cellData.getValue().yarnTwistProperty().asObject());
 
+        SelectedGarments.setEditable(true);
+        SelectedGarments.setCellValueFactory(new GarmentCheckBoxFactory());
 
         // Fetch and display garments from the DB
         try {
@@ -125,5 +137,30 @@ public class GarmentListController {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+
+    // Factory that creates and binds a checkbox for a table cell
+    public class GarmentCheckBoxFactory
+            implements Callback<TableColumn.CellDataFeatures<Garment, CheckBox>, ObservableValue<CheckBox>> {
+        @Override
+        public ObservableValue<CheckBox> call(TableColumn.CellDataFeatures<Garment, CheckBox> param) {
+            Garment garment = param.getValue();
+            CheckBox checkBox = new CheckBox();
+            checkBox.setSelected(false); // Not selected by default
+
+            // When select/deselect the checkbox
+            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
+                // Add or remove the garment from the collection of selected garments
+                if (new_val)
+                    selectedGarments.add(garment);
+                else
+                    selectedGarments.remove(garment);
+            });
+
+            //return checkBox.converterProperty();
+            return new SimpleObjectProperty(checkBox);
+        }
+
     }
 }
