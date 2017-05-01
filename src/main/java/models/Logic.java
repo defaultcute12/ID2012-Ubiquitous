@@ -51,7 +51,7 @@ public class Logic {
             }
 
             //colorresist
-            if(g.getColorbleedResistance().get().equals("yes")) {
+            if(g.getColorbleedResistance().get().equals("Low")) {
                 if(machine.getTemperature().get() > 40) {
                     warnings.put("temperature", true);
                     garments.remove(g);
@@ -61,6 +61,17 @@ public class Logic {
                     warnings.put("time", true);
                     garments.remove(g);
                     proposition.getTemperature().setValue(60);
+                }
+            } else if(g.getColorbleedResistance().get().equals("Medium")) {
+                if (machine.getTemperature().get() > 60) {
+                    warnings.put("temperature", true);
+                    garments.remove(g);
+                    proposition.getTemperature().setValue(60);
+                }
+                if (machine.getTime().get() > 80) {
+                    warnings.put("time", true);
+                    garments.remove(g);
+                    proposition.getTemperature().setValue(80);
                 }
             }
 
