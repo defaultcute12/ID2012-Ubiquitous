@@ -5,17 +5,20 @@
  */
 package main.java.view;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.util.Callback;
 import main.java.controller.MainController;
 import main.java.models.Garment;
 import main.java.models.GarmentDB;
 
-import java.sql.Date;
 import java.sql.SQLException;
 
 /**
@@ -28,7 +31,7 @@ public class GarmentListController {
     // Reference to the main main.src.controller.
     private MainController mainController;
     @FXML
-    private TableView garment;
+    private TableView<Garment> garment;
 
     @FXML
     private TableColumn<Garment, Integer> RFID;
@@ -37,18 +40,21 @@ public class GarmentListController {
     @FXML
     private TableColumn<Garment, String> ColorBleedResist;
     @FXML
-    private TableColumn<Garment, Integer> Weight;
+    private TableColumn<Garment, Float> Weight;
     @FXML
     private TableColumn<Garment, Integer> SpinningLimit;
     @FXML
-    private TableColumn<Garment, Integer> YarnTwist;
+    private TableColumn<Garment, Float> YarnTwist;
 
-    //Initializer
-
+    /**
+     * The constructor.
+     * The constructor is called before the initialize() method.
+     */
     public GarmentListController() {
     }
 
     @FXML
+    //Initializer
     private void initialize () {
         /*
         The setCellValueFactory(...) that we set on the table columns are used to determine
@@ -62,10 +68,27 @@ public class GarmentListController {
         */
         RFID.setCellValueFactory(cellData -> cellData.getValue().rfidProperty().asObject());
         MaxWashTemp.setCellValueFactory(cellData -> cellData.getValue().maxWashTempProperty().asObject());
-        ColorBleedResist.setCellValueFactory(cellData -> cellData.getValue().colorbleedResistanceProperty());
+        //ColorBleedResist.setCellValueFactory(cellData -> cellData.getValue().colorbleedResistanceProperty());
+        ColorBleedResist.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Garment, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Garment, String> param) {
+                if (param.getValue().colorbleedResistanceProperty().getValue())
+                    return new SimpleStringProperty("Yes");
+                else
+                    return new SimpleStringProperty("No");
+            }
+        });
         Weight.setCellValueFactory(cellData -> cellData.getValue().weightProperty().asObject());
         SpinningLimit.setCellValueFactory(cellData -> cellData.getValue().spinningLimitProperty().asObject());
         YarnTwist.setCellValueFactory(cellData -> cellData.getValue().yarnTwistProperty().asObject());
+
+
+        // Fetch and display garments from the DB
+        try {
+            showGarments();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     //Populate garment
@@ -84,19 +107,13 @@ public class GarmentListController {
         //Set items to the garmentstable
         garment.setItems(garData);
     }
-    /**
-     * The constructor.
-     * The constructor is called before the initialize() method.
-     */
-
-   
     
 
     public void setMainApp(MainController mainController) {
         this.mainController = mainController;
     }
 
-    public void showGarments(ActionEvent actionEvent) throws SQLException {
+    public void showGarments() throws SQLException {
         try {
             //Get all garments information
             ObservableList<Garment> garData = GarmentDB.showGarments();

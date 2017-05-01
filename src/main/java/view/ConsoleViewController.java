@@ -27,6 +27,7 @@ public class ConsoleViewController {
      * The constructor is called before the initialize() method.
      */
     public ConsoleViewController() {
+
     }
     
     /**
