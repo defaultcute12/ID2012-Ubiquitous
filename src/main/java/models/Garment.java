@@ -27,6 +27,21 @@ public class Garment {
 
     }
 
+    public Garment(Garment g) {
+        this.rtfid = new SimpleIntegerProperty();
+        this.maxWashTemp = new SimpleIntegerProperty();
+        this.colorbleedResistance = new SimpleStringProperty();
+        this.weight = new SimpleFloatProperty();
+        this.spinningLimit = new SimpleIntegerProperty();
+        this.yarnTwist = new SimpleFloatProperty();
+        this.rtfid.set(g.getRtfid().get());
+        this.maxWashTemp.set(g.getMaxWashTemp().get());
+        this.colorbleedResistance.setValue(g.colorbleedResistance.getValue());
+        this.weight.set(g.getWeight().get());
+        this.spinningLimit.set(g.getSpinningLimit().get());
+        this.yarnTwist.set(g.getYarnTwist().get());
+    }
+
     //Getter setter and properties
     //RFID
     public IntegerProperty getRtfid() {

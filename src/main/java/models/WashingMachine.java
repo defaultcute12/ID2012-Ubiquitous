@@ -33,6 +33,15 @@ public class WashingMachine {
         this.centrifuging = new SimpleBooleanProperty(cenProperty);
     }
 
+    public WashingMachine(WashingMachine machine) {
+        this.temperature = machine.getTemperature();
+        this.time = machine.getTime();
+        this.multipleWashCycles = machine.getMultipleWashCycles();
+        this.cycleSpinIntensity = machine.getCycleSpinIntensity();
+        this.maxLoad = machine.getMaxLoad();
+        this.centrifuging = machine.getCentrifuging();
+    }
+
     /**
      * Default constructor.
      */

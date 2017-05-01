@@ -11,7 +11,9 @@ import main.java.controller.MainController;
 import javafx.fxml.FXML;
 import javafx.scene.layout.VBox;
 import main.java.models.Garment;
+import main.java.models.Logic;
 
+import java.util.HashMap;
 import java.util.Set;
 
 /**
@@ -23,8 +25,8 @@ public class ConsoleViewController {
     
     // Reference to the main application.
     private MainController mainController;
-    
-    @FXML 
+
+    @FXML
     VBox console;
  
     /**
@@ -62,6 +64,23 @@ public class ConsoleViewController {
 
         //System.err.println(txt.toString());
     }
+
+    public void displayAnalysis(Logic logic) {
+        StringBuilder txt = new StringBuilder();
+
+        txt.append("------------------------\n");
+        txt.append("        Results         \n");
+        txt.append("------------------------\n");
+        HashMap<String, Boolean> warnings = logic.getWarnings();
+        if(!warnings.containsValue(true)) {
+            txt.append("OK - No warning");
+        } else {
+            //TODO
+            txt.append("Contains warnings");
+        }
+        displayText(txt.toString(), false);
+    }
+
 
     private void displayText(String txt, boolean clearConsoleBefore) {
         if (clearConsoleBefore)

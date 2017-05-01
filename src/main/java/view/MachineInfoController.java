@@ -76,4 +76,8 @@ public class MachineInfoController {
         spinCycleIntensity.getItems().addAll(56,45,33,76,87,32);
         this.centrifugingButton.selectedProperty().bindBidirectional(machine.getCentrifuging());
     }
+
+    public WashingMachine getMachine() {
+        return machine;
+    }
 }

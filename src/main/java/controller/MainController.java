@@ -6,6 +6,7 @@
 package main.java.controller;
 
 import main.java.models.Garment;
+import main.java.models.Logic;
 import main.java.view.MachineInfoController;
 import javafx.fxml.FXML;
 import main.java.models.WashingMachine;
@@ -25,6 +26,7 @@ public class MainController {
     GarmentListController garmentListController;
     @FXML
     ConsoleViewController consoleViewController;
+    private Logic logic;
 
     @FXML
     public void initialize() {
@@ -53,6 +55,12 @@ public class MainController {
     /**
      * FUNCTIONS
      */
+
+    public void startWashing(Set<Garment> garments) {
+        logic = new Logic(machineInfoController.getMachine(), garments);
+        logic.process();
+        consoleViewController.displayAnalysis(logic);
+    }
 
 
     public void displayGarmentsSelectedInConsole(Set<Garment> garments) {
