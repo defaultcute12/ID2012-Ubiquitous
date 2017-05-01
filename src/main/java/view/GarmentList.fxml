@@ -18,7 +18,8 @@
                 <TableColumn fx:id="SelectedGarments" prefWidth="75.0" resizable="false" text="Selected" />
             </columns>
           </TableView>
-      <Button mnemonicParsing="false" onAction="#handleGarmentsSelectedForWashing" text="Select For Washing" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0" />
+      <Button mnemonicParsing="false" onAction="#handleGarmentsSelectedForWashing" text="Select For Washing" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" />
+      <Button disable="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleGarmentsSelectedForWashing" text="Start Washing" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0" />
     </children>
 
 </AnchorPane>
