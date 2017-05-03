@@ -54,30 +54,30 @@ public class MachineInfoController {
 
         // We bind the main.src.view's component with value from the object model
         // When model change, it's automatically udpated into the main.src.view
-        this.maxLoadLabel.textProperty().bind(machine.getMaxLoad().asString());
+        this.maxLoadLabel.textProperty().bind(this.machine.getMaxLoad().asString());
 
-        this.timeLabel.textProperty().bindBidirectional(machine.getTime(),
+        this.timeLabel.textProperty().bindBidirectional(this.machine.getTime(),
                 new NumberStringConverter());
 
         this.timeLabel.textProperty().bind(Bindings.format("%.2f",
                 timeSlider.valueProperty()));
 
-        this.temperature.valueProperty().bindBidirectional(machine.getTemperature().asObject());
-        this.spinCycleIntensity.valueProperty().bindBidirectional(machine.getCycleSpinIntensity().asObject());
+        this.machine.getTemperature().bind(this.temperature.getSelectionModel().selectedItemProperty());
+        this.temperature.valueProperty().bindBidirectional(this.machine.getTemperature().asObject());
+        this.machine.getCycleSpinIntensity().bind(this.spinCycleIntensity.getSelectionModel().selectedItemProperty());
+        this.spinCycleIntensity.valueProperty().bindBidirectional(this.machine.getCycleSpinIntensity().asObject());
         //temp values
-        temperature.getItems().addAll(25,30,40,50,35,10);
+        temperature.getItems().addAll(10,25,30,35,40,50);
         temperature.setValue(25);
         //default
         spinCycleIntensity.setValue(56);
-
-
-
         //spinvalues
-        spinCycleIntensity.getItems().addAll(56,45,33,76,87,32);
+        spinCycleIntensity.getItems().addAll(32,45,56,76,87);
+
         this.centrifugingButton.selectedProperty().bindBidirectional(machine.getCentrifuging());
     }
 
     public WashingMachine getMachine() {
-        return machine;
+        return this.machine;
     }
 }

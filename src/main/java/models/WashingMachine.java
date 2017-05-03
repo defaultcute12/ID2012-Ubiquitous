@@ -13,30 +13,26 @@ import javafx.beans.property.SimpleIntegerProperty;
 public class WashingMachine {
 
     private IntegerProperty temperature;
-    private IntegerProperty time;
-    private IntegerProperty multipleWashCycles;
+    private FloatProperty time;
     private IntegerProperty cycleSpinIntensity;
-    private IntegerProperty maxLoad;
+    private FloatProperty maxLoad;
     private BooleanProperty centrifuging;
 
     public WashingMachine(int temperature,
-                          int time,
-                          int multipleWashCycles,
+                          float time,
                           int cycleSpinIntensity,
-                          int maxLoad,
+                          float maxLoad,
                           boolean cenProperty) {
         this.temperature = new SimpleIntegerProperty(temperature);
-        this.time = new SimpleIntegerProperty(time);
-        this.multipleWashCycles = new SimpleIntegerProperty(multipleWashCycles);
+        this.time = new SimpleFloatProperty(time);
         this.cycleSpinIntensity = new SimpleIntegerProperty(cycleSpinIntensity);
-        this.maxLoad = new SimpleIntegerProperty(maxLoad);
+        this.maxLoad = new SimpleFloatProperty(maxLoad);
         this.centrifuging = new SimpleBooleanProperty(cenProperty);
     }
 
     public WashingMachine(WashingMachine machine) {
         this.temperature = machine.getTemperature();
         this.time = machine.getTime();
-        this.multipleWashCycles = machine.getMultipleWashCycles();
         this.cycleSpinIntensity = machine.getCycleSpinIntensity();
         this.maxLoad = machine.getMaxLoad();
         this.centrifuging = machine.getCentrifuging();
@@ -57,20 +53,12 @@ public class WashingMachine {
         this.temperature = temperature;
     }
 
-    public IntegerProperty getTime() {
+    public FloatProperty getTime() {
         return time;
     }
 
-    public void setTime(IntegerProperty time) {
+    public void setTime(FloatProperty time) {
         this.time = time;
-    }
-
-    public IntegerProperty getMultipleWashCycles() {
-        return multipleWashCycles;
-    }
-
-    public void setMultipleWashCycles(IntegerProperty multipleWashCycles) {
-        this.multipleWashCycles = multipleWashCycles;
     }
 
     public IntegerProperty getCycleSpinIntensity() {
@@ -81,11 +69,11 @@ public class WashingMachine {
         this.cycleSpinIntensity = cycleSpinIntensity;
     }
 
-    public IntegerProperty getMaxLoad() {
+    public FloatProperty getMaxLoad() {
         return maxLoad;
     }
 
-    public void setMaxLoad(IntegerProperty maxLoad) {
+    public void setMaxLoad(FloatProperty maxLoad) {
         this.maxLoad = maxLoad;
     }
 
@@ -95,5 +83,16 @@ public class WashingMachine {
 
     public void setCentrifuging(BooleanProperty centrifuging) {
         this.centrifuging = centrifuging;
+    }
+
+    public String toString() {
+        String string = "";
+
+        string = "temperature: " + temperature.getValue().toString() + "\n"
+                + "time: " + time.getValue().toString() + "\n"
+                + "intensity of spin: " + cycleSpinIntensity.getValue().toString() + "\n"
+                + "centrifuging: " + centrifuging.getValue().toString() + "\n";
+
+        return string;
     }
 }

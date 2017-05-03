@@ -14,6 +14,7 @@ import main.java.models.Garment;
 import main.java.models.Logic;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -76,7 +77,20 @@ public class ConsoleViewController {
             txt.append("OK - No warning");
         } else {
             //TODO
-            txt.append("Contains warnings");
+            txt.append("Contains warnings:\n");
+            for (Map.Entry<String, Boolean> entry : warnings.entrySet()) {
+                if(entry.getValue()) {
+                    txt.append("- " + entry.getKey() + "\n");
+                }
+            }
+            txt.append("\n");
+            txt.append("-- Recommanded selection of garments for this machine's settings --\n");
+            for(Garment g : logic.getFinalGarments()) {
+                txt.append(g.getRtfid().getValue().toString() + "\n");
+            }
+            txt.append("\n");
+            txt.append("-- Recommanded machine's settings for this selection of garments --\n");
+            txt.append(logic.getProposition().toString());
         }
         displayText(txt.toString(), false);
     }

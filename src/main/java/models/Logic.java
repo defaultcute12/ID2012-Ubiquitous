@@ -22,13 +22,9 @@ public class Logic {
         this.machine = new WashingMachine(machine);
         this.proposition = new WashingMachine(machine);
         this.garments = new ArrayList<Garment>();
-        for(Garment g : garments) {
-            this.garments.add(new Garment(g));
-        }
+        this.garments.addAll(garments);
         this.finalGarments = new ArrayList<Garment>();
-        for(Garment g : garments) {
-            this.finalGarments.add(new Garment(g));
-        }
+        this.finalGarments.addAll(garments);
         this.warnings = new HashMap<String, Boolean>();
         this.warnings.put("temperature", false);
         this.warnings.put("spin", false);
@@ -40,6 +36,22 @@ public class Logic {
 
     public HashMap<String, Boolean> getWarnings() {
         return warnings;
+    }
+
+    public WashingMachine getProposition() {
+        return proposition;
+    }
+
+    public WashingMachine getMachine() {
+        return machine;
+    }
+
+    public ArrayList<Garment> getGarments() {
+        return garments;
+    }
+
+    public ArrayList<Garment> getFinalGarments() {
+        return finalGarments;
     }
 
     public void process() {
@@ -95,52 +107,48 @@ public class Logic {
                     finalGarments.remove(g);
                     proposition.getCentrifuging().setValue(false);
                 }
-                if(g.getYarnTwist().get() < 30 && machine.getMultipleWashCycles().get() > 4) {
-                    warnings.put("cycles", true);
-                    finalGarments.remove(g);
-                    proposition.getMultipleWashCycles().setValue(3);
-                } else if(g.getYarnTwist().get() < 20 && machine.getMultipleWashCycles().get() > 3) {
-                    warnings.put("cycles", true);
-                    finalGarments.remove(g);
-                    proposition.getMultipleWashCycles().setValue(2);
-                }
-                else if(g.getYarnTwist().get() < 10 && machine.getMultipleWashCycles().get() > 2) {
-                    warnings.put("cycles", true);
-                    finalGarments.remove(g);
-                    proposition.getMultipleWashCycles().setValue(1);
-                } else if(machine.getMultipleWashCycles().get() > 5) {
-                    warnings.put("cycles", true);
-                    finalGarments.remove(g);
-                    proposition.getMultipleWashCycles().setValue(4);
-                }
             }
 
         }
 
         //weight
         if(machine.getMaxLoad().get() < totalLoad) {
-            glutonWeight();
+            float finalLoad = 0;
+            for(Garment g : finalGarments) {
+                finalLoad += g.getWeight().get();
+            }
+            if (machine.getMaxLoad().get() < finalLoad){
+                glutonWeight();
+            }
             warnings.put("weight", true);
         }
     }
 
-    protected void glutonWeight() {
+    private void glutonWeight() {
         ArrayList<Garment> gList = new ArrayList<Garment>();
         float totalLoad = 0;
-        Garment gTmp = new Garment();
-        float wTmp = 0;
         while(totalLoad < machine.getMaxLoad().get()) {
-            for(Garment g : garments) {
-                if(wTmp < g.getWeight().get()) {
-                    wTmp = g.getWeight().get();
-                    gTmp = g;
-                }
+            Garment gTmp = getMax(finalGarments);
+            totalLoad += gTmp.getWeight().get();
+            if(totalLoad < machine.getMaxLoad().get()) {
+                gList.add(gTmp);
+                finalGarments.remove(gTmp);
             }
-            gList.add(gTmp);
-            totalLoad += wTmp;
         }
-        garments.clear();
-        garments.addAll(gList);
+        finalGarments.clear();
+        finalGarments.addAll(gList);
+    }
+
+    private Garment getMax(ArrayList<Garment> garments) {
+        Garment gTmp = garments.get(0);
+        float wTmp = gTmp.getWeight().get();
+        for(Garment g : garments) {
+            if(g.getWeight().get() > wTmp) {
+                gTmp = g;
+                wTmp = g.getWeight().get();
+            }
+        }
+        return gTmp;
     }
 
 }

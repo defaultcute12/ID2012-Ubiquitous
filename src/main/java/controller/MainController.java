@@ -37,7 +37,7 @@ public class MainController {
         consoleViewController.setMainApp(this);
 
         // Hard coded to test the implementation
-        machineInfoController.setMachine(new WashingMachine(90, 60, 2, 1000, 15, true));
+        machineInfoController.setMachine(new WashingMachine(90, 60, 1000, 15, true));
     }
 
     public MachineInfoController getMachineInfoController() {
